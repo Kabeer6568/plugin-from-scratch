@@ -31,24 +31,6 @@ if (! defined ('MY_PLUGIN_DIR_URL')) {
 }
 
 
-// including scripts and style
 
-require_once MY_PLUGIN_DIR_PATH . 'inc/scripts.php';
+require_once MY_PLUGIN_DIR_PATH . 'inc/plugin.php';
 
-
-// including custom post tyep & taxonomy
-
-require_once MY_PLUGIN_DIR_PATH . 'inc/cpt.php';
-require_once MY_PLUGIN_DIR_PATH . 'inc/taxonomy.php';
-
-// including short codes
-require_once MY_PLUGIN_DIR_PATH . 'inc/shortcodes.php';
-
-
-// including Meta Data
-require_once MY_PLUGIN_DIR_PATH . 'inc/meta.php';
-
-// including Admin menu
-require_once MY_PLUGIN_DIR_PATH . 'inc/admin-menu.php';
-require_once MY_PLUGIN_DIR_PATH . 'inc/admin-page.php';
-require_once MY_PLUGIN_DIR_PATH . 'inc/admin-settings.php';

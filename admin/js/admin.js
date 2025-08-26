@@ -10,7 +10,6 @@
 //     document.querySelector(".output_shortcode").style.display = "block";
 // };
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("#shortcode_form");
 
