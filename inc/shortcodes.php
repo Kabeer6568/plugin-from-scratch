@@ -3,25 +3,52 @@
 add_shortcode('wporg', 'wporg_shortcode');
 function wporg_shortcode( ) {
     // do something to $content
+    $db_data = get_option('my_plugin_txt');
+    $db_checked = get_option('my_plugin_checkbox');
+
+    if ($db_checked == "on") {
+        if (!empty($db_data)) {
+       return $db_data;
+    }
+      else{
+        return 'This is test short code';
+       }
     
-    // always return
-    return 'This is test short code';
+    }
+    else{
+        return 'Short Code Disabled';
+    }
+
+    
 }
 
 
 
 function my_first_shortcode_pram( $atts = array(), ) {
+
+    $p_industry = get_option('my_plugin_label_txt');
+    $p_link = get_option('my_plugin_link_txt');
    
     $attr = shortcode_atts(
 		array(
-			'label' => 'Label Required',
-            'link' => 'wordpress.org'
+			'label' => $p_industry,
+            'link' => $p_link
 		), $atts
 	);
-    ?>
-    <a href=<?php echo $attr['link']  ?>>
+
+    if (!empty($p_industry) && !empty($p_link)) { ?>
+        
+        <a href=<?php echo $attr['link']  ?>>
 <?php echo $attr['label'] ?>
     </a>
+    
+    <?php
+    }
+    else{
+        return 'one or more fields are not filled';
+    }
+    ?>
+    
     <?php
     return ;
 }
@@ -45,6 +72,7 @@ function my_first_shortcode_pram_dynamic( $atts = array(), ) {
     
     <div>
         Project Url = <?php echo $project_url ?>
+        <br>
         Project Industry = <?php echo $project_industry ?>
     </div>
     <?php

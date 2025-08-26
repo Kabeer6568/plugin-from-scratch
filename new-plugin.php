@@ -51,3 +51,4 @@ require_once MY_PLUGIN_DIR_PATH . 'inc/meta.php';
 // including Admin menu
 require_once MY_PLUGIN_DIR_PATH . 'inc/admin-menu.php';
 require_once MY_PLUGIN_DIR_PATH . 'inc/admin-page.php';
+require_once MY_PLUGIN_DIR_PATH . 'inc/admin-settings.php';
