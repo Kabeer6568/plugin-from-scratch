@@ -79,3 +79,28 @@ function my_first_shortcode_pram_dynamic( $atts = array(), ) {
     return ;
 }
 add_shortcode( 'my_first_shortcode_pram_dynamic', 'my_first_shortcode_pram_dynamic' );
+
+
+
+function vote_btn_shortcode( $atts = array()){
+    $attr = shortcode_atts(
+        array(
+            "like" => 'Like',
+            'dislike' => 'Dislike', 
+        ), $atts, 'vote_btn'
+    );
+
+    $user_id = get_current_user_id();
+    $post_id = get_the_ID();
+?>
+<button class="my_like" data-user-id = <?php echo $user_id ?> data-post-id = <?php echo $post_id ?>>
+    <?php echo $attr['like'] ?>
+</button>
+<button class="my_dislike" data-user-id = <?php echo $user_id ?> data-post-id = <?php echo $post_id ?>>
+    <?php echo $attr['dislike'] ?>
+</button>
+
+
+<?php }
+
+add_shortcode('vote_btn' , 'vote_btn_shortcode');

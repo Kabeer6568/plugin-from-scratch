@@ -23,14 +23,16 @@ class My_New_Plugin{
         // including short codes
         require_once MY_PLUGIN_DIR_PATH . 'inc/shortcodes.php';
 
-
         // including Meta Data
         require_once MY_PLUGIN_DIR_PATH . 'inc/meta.php';
 
         // including Admin menu
-        require_once MY_PLUGIN_DIR_PATH . 'inc/admin-menu.php';
+        
         require_once MY_PLUGIN_DIR_PATH . 'inc/admin-page.php';
         require_once MY_PLUGIN_DIR_PATH . 'inc/admin-settings.php';
+
+        require_once MY_PLUGIN_DIR_PATH . 'inc/db.php';
+        require_once MY_PLUGIN_DIR_PATH . 'inc/voting.php';
 
     }
 
@@ -42,6 +44,8 @@ class My_New_Plugin{
     function my_plugin_public_scripts(){
         wp_enqueue_style('my-plugin-public-css' , MY_PLUGIN_DIR_URL . 'public/css/public.css');
         wp_enqueue_script('my-plugin-public-js' , MY_PLUGIN_DIR_URL . 'public/js/public.js' , true);
+        wp_enqueue_script('my-plugin-ajax-js' , MY_PLUGIN_DIR_URL . 'public/js/ajax.js' , true);
+        wp_localize_script('my-plugin-ajax-js' , 'my_ajax' , ['ajax_url' => admin_url('admin-ajax.php') ]);
     }
 
     public function register_projects_post_type() {
@@ -78,31 +82,26 @@ class My_New_Plugin{
     register_post_type('projects', $args);
 }
 
-public function my_plugin_menu(){
-add_menu_page(
-    'My New Plugin',
-    'New Plugin',
-    'manage_options',
-    'new-plugin',
-    'my_plugin_options_page_html',
-    'dashicons-admin-site',
-    20
-);
+        public function my_plugin_menu(){
+        add_menu_page(
+            'My New Plugin',
+            'New Plugin',
+            'manage_options',
+            'new-plugin',
+            'my_plugin_options_page_html',
+            'dashicons-admin-site',
+            20
+        );
 
-add_submenu_page(
-	'new-plugin',
-	'My Plugin Sub Page',
-	'Sub Menu',
-	'manage_options',
-	'sub-menu',
-	'my_plugin_submenu_options_page_html'
-);
-}
-
-
-
-
-
+        add_submenu_page(
+            'new-plugin',
+            'My Plugin Sub Page',
+            'Sub Menu',
+            'manage_options',
+            'sub-menu',
+            'my_plugin_submenu_options_page_html'
+        );
+        }
 
 
 }

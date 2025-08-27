@@ -30,7 +30,14 @@ if (! defined ('MY_PLUGIN_DIR_URL')) {
     define('MY_PLUGIN_DIR_URL' , plugin_dir_url(__FILE__));
 }
 
+if (! defined('MY_PLUGIN_DB_VERSION')) {
+    define('MY_PLUGIN_DB_VERSION' , '1.0.0');
+}
+
 
 
 require_once MY_PLUGIN_DIR_PATH . 'inc/plugin.php';
+
+
+register_activation_hook( __FILE__, 'my_plugin_reaction_table' );
 
