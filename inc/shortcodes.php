@@ -66,20 +66,27 @@ function my_first_shortcode_pram_dynamic( $atts = array(), ) {
 		), $atts, 'my_first_shortcode_pram_dynamic'
 	);
 
-    $project_url = get_post_meta($attr['id'] , 'project_url' , true);
-    $project_industry = get_post_meta($attr['id'] , 'project_industry' , true)
+    // sanitize
+    $post_id = intval($attr['id']);
+
+    if (!get_post_status( $post_id )) {
+        return "Invalid id";
+    };
+
+
+    $project_url = get_post_meta($post_id , 'project_url' , true);
+    $project_industry = get_post_meta($post_id , 'project_industry' , true)
     ?>
     
     <div>
-        Project Url = <?php echo $project_url ?>
+        Project Url = <?php echo esc_url($project_url) ?>
         <br>
-        Project Industry = <?php echo $project_industry ?>
+        Project Industry = <?php echo esc_html( $project_industry )  ?>
     </div>
     <?php
     return ;
 }
 add_shortcode( 'my_first_shortcode_pram_dynamic', 'my_first_shortcode_pram_dynamic' );
-
 
 
 function vote_btn_shortcode( $atts = array()){
@@ -90,14 +97,16 @@ function vote_btn_shortcode( $atts = array()){
         ), $atts, 'vote_btn'
     );
 
-    $user_id = get_current_user_id();
+    $liked = strval($attr['like']);
+    $disliked = strval($attr['dislike']);
+    // $user_id = get_current_user_id();
     $post_id = get_the_ID();
 ?>
-<button class="my_like" data-user-id = <?php echo $user_id ?> data-post-id = <?php echo $post_id ?>>
-    <?php echo $attr['like'] ?>
+<button class="my_like"  data-post-id = <?php echo $post_id ?>>
+    <?php echo $liked ?>
 </button>
-<button class="my_dislike" data-user-id = <?php echo $user_id ?> data-post-id = <?php echo $post_id ?>>
-    <?php echo $attr['dislike'] ?>
+<button class="my_dislike"  data-post-id = <?php echo $post_id ?>>
+    <?php echo $disliked ?>
 </button>
 
 

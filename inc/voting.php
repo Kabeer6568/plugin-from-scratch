@@ -3,9 +3,22 @@ function vote_post_callback() {
     global $wpdb;
     $table_votes = $wpdb->prefix . 'votes';
 
-    $post_id   = intval($_POST['pid']);
-    $user_id   = intval($_POST['uid']);
+    check_ajax_referer( 'my_plugin_voting_nonce' , 'nonce' )
+    $post_id   = isset($_POST['pid']) ? intval($_POST['pid']) : 0;
+    $user_id   = get_current_user_id();
     $vote_type = sanitize_text_field($_POST['vote_type']);
+
+
+   if ( $user_id === 0 ) {
+    wp_send_json_error( esc_html__( 'You must be logged in to vote.', my-basics-plugin ) );
+}
+   if ( ! get_post_status( $post_id ) ) {
+    wp_send_json_error( esc_html__( 'Invald Id.', my-basics-plugin )  );
+}
+   if ( !in_array($vote_type , ['1', '-1'	] ,  true) ) {
+    wp_send_json_error( esc_html__( 'Invald VOTE type.', my-basics-plugin ) );
+}
+
 
     if (!empty($post_id) && !empty($user_id)) {
         // Check if user already voted on this post

@@ -45,7 +45,13 @@ class My_New_Plugin{
         wp_enqueue_style('my-plugin-public-css' , MY_PLUGIN_DIR_URL . 'public/css/public.css');
         wp_enqueue_script('my-plugin-public-js' , MY_PLUGIN_DIR_URL . 'public/js/public.js' , true);
         wp_enqueue_script('my-plugin-ajax-js' , MY_PLUGIN_DIR_URL . 'public/js/ajax.js' , true);
-        wp_localize_script('my-plugin-ajax-js' , 'my_ajax' , ['ajax_url' => admin_url('admin-ajax.php') ]);
+        wp_localize_script(
+            'my-plugin-ajax-js' , 
+            'my_ajax' , 
+            [
+                'ajax_url' => admin_url('admin-ajax.php') ,
+                'nonce' => wp_create_nonce( 'my_plugin_voting_nonce' ),
+            ]);
     }
 
     public function register_projects_post_type() {
